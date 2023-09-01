@@ -1,8 +1,22 @@
 baseURL = "https://nannafudge.github.io/"
-title = "NannaFudge"
+title = "Nanna's Fudge - Software Blog"
 languageCode = "en-us"
 theme = "hello-friend-ng"
+
 paginate = 10
+rssLimit  = 10
+disableRSS = false
+
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = true
+
+[author]
+  name = "nannafudge"
+
+[permalinks]
+  blog = "/blog/:slug"
+  category = "/blog/category/:slug"
+  series = "/blog/category/series/:slug"
 
 [params]
   dateform = "Jan 2, 2006"
@@ -11,7 +25,7 @@ paginate = 10
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "A simple Static Website developed using Hugo"
+  homeSubtitle = "Classic recipes for effective software development"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = true
@@ -20,31 +34,40 @@ paginate = 10
   enableSharingButtons = true
 
   # Metadata mostly used in document's head
-  description = "My test Hugo Static Website"
-  keywords = "homepage,test,hugo"
+  description = "Personal blog about Computer Science and Cryptography"
+  keywords = "software, software design, software architecture, computer science, comp-sci, cryptography, mathematics, crypto, math"
   images = [""]
 
+[params.footer]
+  trademark = true
+  rss = true
+  copyright = true
+  author = true
+
+[params.logo]
+  logoText = "~/:slug"
+  logoHomeLink = "/"
+  logoCursorPathname = true
+
+[[params.social]]
+  name = "twitter"
+  url  = "https://twitter.com/apeth1111"
+[[params.social]]
+  name = "github"
+  url  = "https://github.com/nannafudge"
+
 [taxonomies]
-    category = "test"
+  blog = "blog"
+  category = "category"
+  series = "series"
 
 [languages]
   [languages.en]
-    title = "NannaFudge's Page"
-    subtitle = "A simple Hugo Static Website"
-    keywords = ""
+    title = "Nanna's Fudge"
+    subtitle = "Classic recipes for effective software development"
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
-    readOtherPosts = "Read other posts"
 
-    [languages.en.params.logo]
-      logoText = "echo \"welcome\""
-      logoHomeLink = "/"
-    # or
-    #
-    # path = "/img/your-example-logo.svg"
-    # alt = "Your example logo alt text"
-
-  # And you can even create generic menu
 [[menu.main]]
-identifier = "test"
-name = "Test Page"
-url = "/test"
+identifier = "blog"
+name = "Blog"
+url = "/blog"
