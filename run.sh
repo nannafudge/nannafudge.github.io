@@ -3,7 +3,9 @@
 SETUP=false
 TEMPLATES=false
 
-SVGBOB="$PWD/svgbob/target/release/svgbob_cli"
+LAUNCH_DIR="$PWD"
+SVGBOB_DIR="$PWD/svgbob"
+SVGBOB_CLI="$SVGBOB_DIR/target/release/svgbob_cli"
 
 function help () {
     echo "run.sh [--all, -a]: [--setup | -s] [--gen-templates | -g]"
@@ -13,9 +15,23 @@ function setup () {
     echo "Updating submodules..."
     git submodule init &&
     git submodule update
-    check_errors
 
-    exit 0
+    if [[ ! -d $SVGBOB_DIR ]]; then
+        echo "svgbob submodule directory not found, exiting..."
+        exit 4
+    fi
+
+    if ! $(cargo --version 2&>1 &> /dev/null); then
+        curl https://sh.rustup.rs -sSf | sh -s -- -y
+        check_errors
+    fi
+
+    if [[ ! -f $SVGBOB_CLI ]]; then
+        cd svgbob && cargo build
+        check_errors
+    fi
+
+    cd $LAUNCH_DIR
 }
 
 function gen_templates () {
@@ -29,13 +45,11 @@ function gen_templates () {
         $SVGBOB $template > $out_file
         check_errors
     done
-
-    exit 0
 }
 
 function check_errors () {
     local exit=$?
-    [[ $exit != 0 ]] && echo $1 && exit $exit
+    [[ $exit != 0 ]] && echo $1 && cd $LAUNCH_DIR && exit $exit
 }
 
 while [[ $# -gt 0 ]]; do
@@ -68,7 +82,7 @@ if !($SETUP || $TEMPLATES); then
     echo "No commands found, run --help to view available commands"
     exit 2
 fi
-if [[ ! -f $SVGBOB ]]; then
+if [[ ! -f $SVGBOB_CLI ]]; then
     echo "svgbob cli binary not found, exiting..."
     exit 3
 fi
@@ -80,3 +94,5 @@ fi
 if $TEMPLATES; then
     gen_templates
 fi
+
+exit 0
