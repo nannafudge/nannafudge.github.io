@@ -1,0 +1,18 @@
+<div class="logo">
+    <a class="logo__text logo__link" style="color: crimson;" title="home" href="{{ .Site.BaseURL }}">
+        ~/
+    </a>
+    {{ $scratch := newScratch }}
+    {{ $scratch.Set "paths" "" }}
+    {{ range $path := split .Page.RelPermalink "/" }}
+        {{ if ne $path "" }}
+            {{ $scratch.Add "paths" (print $path "/") }}
+            <a class="logo__text logo__link" title="{{ $path }}" href='{{ $scratch.Get "paths" | relURL }}'>
+                {{ $path }}/
+            </a>
+        {{ end }}
+    {{ end }}
+    </span>
+    <span class="logo__text">$</span>
+    <span class="logo__cursor"></span>
+</div>

@@ -10,13 +10,10 @@ disableRSS = false
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 
+staticDir = ["static"]
+
 [author]
   name = "nannafudge"
-
-[permalinks]
-  blog = "/blog/:slug"
-  category = "/blog/category/:slug"
-  series = "/blog/category/series/:slug"
 
 [params]
   dateform = "Jan 2, 2006"
@@ -38,16 +35,17 @@ defaultContentLanguageInSubdir = true
   keywords = "software, software design, software architecture, computer science, comp-sci, cryptography, mathematics, crypto, math"
   images = [""]
 
+  customCSS = ["/style.css"]
+
+[permalinks]
+  categories = "/blog/categories/:slug"
+  tags = "/blog/tags/:slug"
+
 [params.footer]
   trademark = true
   rss = true
   copyright = true
   author = true
-
-[params.logo]
-  logoText = "~/:slug"
-  logoHomeLink = "/"
-  logoCursorPathname = true
 
 [[params.social]]
   name = "twitter"
@@ -55,11 +53,6 @@ defaultContentLanguageInSubdir = true
 [[params.social]]
   name = "github"
   url  = "https://github.com/nannafudge"
-
-[taxonomies]
-  blog = "blog"
-  category = "category"
-  series = "series"
 
 [languages]
   [languages.en]

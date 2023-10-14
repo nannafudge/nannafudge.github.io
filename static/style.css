@@ -1,0 +1,16 @@
+.logo {
+    overflow: hidden;
+}
+
+.logo__link {
+    text-decoration: none;
+}
+
+.logo__link:hover {
+    text-decoration: underline;
+}
+
+.logo__link:last-of-type {
+    flex: 0 0 auto;
+    text-overflow: ellipsis;
+}
