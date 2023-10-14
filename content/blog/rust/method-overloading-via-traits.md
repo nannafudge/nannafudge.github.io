@@ -6,7 +6,6 @@ toc: true
 categories:
   - rust
 tags:
-  - rust
   - programming
 ---
 
@@ -19,6 +18,8 @@ Rust has a reputation for taking concepts programmers are familiar with and turn
 One such concept discarded is that of **traditional method overloading**. Or well, not discarded - more-so re-hashed & realized in a different manner. *Opinionated*, so to speak. Those familiar with Java, C++, any many other OO languages, will be intimately familiar with the concept of **overloading**; but for those who aren't, let's dive in:
 
 ## Crash Course in Overloading
+
+----
 
 [Click here to skip this section if you're already familiar with the concept.]({{< relref "#overloading_in_rust" >}})
 
@@ -117,6 +118,8 @@ Oh dear! Unlike Java, Rust seems to be unable to tell the two apart. Or so it se
 
 ## Overloading in Rust {#overloading_in_rust}
 
+----
+
 As we all know - Rust is an incredibly opinionated language. One such opinion, or design decision, was that *traditional* method overloading *shouldn't be supported*. Why? Well, it makes sense really, considering the `Trait`-based programming approach Rust applies. As per their [2015 blog post on the trait system](https://blog.rust-lang.org/2015/05/11/traits.html):
 
 > **Overloading.** Rust does not support traditional overloading where the same method is defined with multiple signatures. But traits provide much of the benefit of overloading: if a method is defined generically over a trait, it can be called with any type implementing that trait. Compared to traditional overloading, this has two advantages:
@@ -130,6 +133,8 @@ Beyond their rationale above (which is sound - especially the second), I *strong
 Traits, by virtue of their nature, *implicitly* support the notion of overloading, and are naturally able to express such (as we'll see shortly). [Rust already provides resolution and *Monomorphization* of traits (and associated functions) in its compilation pipeline.](https://rustc-dev-guide.rust-lang.org/traits/resolution.html) So why bother complicating things?
 
 ### Example: `From`/`Into`
+
+----
 
 This approach to overloading is utilized within a plethora of Rust `core` library traits. Take `Into` for example:
 
@@ -195,6 +200,8 @@ fn main() -> () {
 *Et Voila:* Overloading!
 
 ## Moving On - Rusty Overloading Design Pattern
+
+----
 
 So, in observing the above, we can see how to go about implementing Overloading within Rust. Let's continue with our `Calculator` example set out earlier. Changing tactics, let's re-implement using the Rusty idioms described earlier:
 
@@ -275,6 +282,8 @@ Outputs:
 Awesome! We've finally got our overloaded implementation of `add()`!
 
 ### Going Further
+
+----
 
 In reality, we'd implement the operator traits defined within [`core::ops`](https://doc.rust-lang.org/core/ops/#traits) for our arithmetic, rather than define our own interface re-implementing theirs. This comes with the added benefit of being able to use **built-in aliases** for the corresponding operators. I.e. rather than call `calculator.add(...)`, we'd simply use `calculator += ...` instead!
 

@@ -13,15 +13,14 @@ function help () {
 
 function setup () {
     echo "Updating submodules..."
-    git submodule init &&
-    git submodule update
+    git submodule init && git submodule update
 
     if [[ ! -d $SVGBOB_DIR ]]; then
         echo "svgbob submodule directory not found, exiting..."
         exit 4
     fi
 
-    if ! $(cargo --version 2&>1 &> /dev/null); then
+    if [[ $(cargo --version &> /dev/null) -ne 0 ]]; then
         echo "Installing rust..."
         curl https://sh.rustup.rs -sSf | sh -s -- -y
         check_errors
@@ -29,7 +28,7 @@ function setup () {
 
     if [[ ! -f $SVGBOB_CLI ]]; then
         echo "Building svgbob..."
-        cd svgbob && cargo build
+        cd svgbob && cargo build --release
         check_errors
     fi
 
@@ -37,6 +36,7 @@ function setup () {
 }
 
 function gen_templates () {
+    [[ -d "templates" ]] || mkdir templates
     for template in $(find templates -type f -name "*.txt" -print);
     do
         local out_file=${template#templates/}
@@ -85,13 +85,14 @@ if !($SETUP || $TEMPLATES); then
     echo "No commands found, run --help to view available commands"
     exit 2
 fi
-if [[ ! -f $SVGBOB_CLI ]]; then
-    echo "svgbob cli binary not found, exiting..."
-    exit 3
-fi
 
 if $SETUP; then
     setup
+fi
+
+if [[ ! -f $SVGBOB_CLI ]]; then
+    echo "svgbob cli binary not found, exiting..."
+    exit 3
 fi
 
 if $TEMPLATES; then
