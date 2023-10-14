@@ -22,11 +22,13 @@ function setup () {
     fi
 
     if ! $(cargo --version 2&>1 &> /dev/null); then
+        echo "Installing rust..."
         curl https://sh.rustup.rs -sSf | sh -s -- -y
         check_errors
     fi
 
     if [[ ! -f $SVGBOB_CLI ]]; then
+        echo "Building svgbob..."
         cd svgbob && cargo build
         check_errors
     fi
@@ -42,6 +44,7 @@ function gen_templates () {
         check_errors "Malformed template file name: ${template}"
 
         [[ -d ${out_file%\/*.svg} ]] || mkdir -p ${out_file%\/*.svg}
+        echo "Rendering template ${template} to ${out_file}"
         $SVGBOB $template > $out_file
         check_errors
     done
