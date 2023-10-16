@@ -5,7 +5,7 @@
 
 ----
 
-##### Archived Blog:⠀[apeth.substack.com](https://apeth.substack.com)
+##### Archived Blog:⠀[https://apeth.substack.com](https://apeth.substack.com)
 
 ## Latest Posts:
 
